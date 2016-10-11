@@ -164,7 +164,7 @@ class Gui extends JFrame implements ActionListener
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox message = new JComboBox();
+		JComboBox message = new JComboBox<String>();
 		message.setBounds(10, 33, 205, 23);
 		contentPane.add(message);
 		
