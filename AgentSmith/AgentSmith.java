@@ -83,6 +83,9 @@ class Gui extends JFrame implements ActionListener {
 		JLabel lblLog = new JLabel("Log");
 		lblLog.setBounds(240, 11, 184, 14);
 		contentPane.add(lblLog);
+		
+		
+		setVisible(true);
     }
 
     public void setAgent(AgentSmith a) {
