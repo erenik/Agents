@@ -59,7 +59,7 @@ public class AgentSmith extends Agent {
 		System.out.println(request);
 		if (request.equals("Who are you?"))
 			return "Agent Smith: Me? I guess you could say, that I am the Alpha... ";
-		return "Kill";
+		return "...";
 	}
 	
 	// setup agent
@@ -95,12 +95,16 @@ public class AgentSmith extends Agent {
 				if (msg != null)
 				{
 					String content = msg.getContent();
+					String performative = msg.getPerformative(msg.getPerformative());
+					if (performative.equals("REQUEST") == false)
+						return; // Reply only to requests. Avoid loops.
+
 					if (content.equals("Kill"))
 					{
 						doDelete(); // Kill self.
 						return;
 					}
-					String replyStr = ReplyForRequest(msg.getContent());
+					String replyStr = ReplyForRequest(msg.getContent());						
 					System.out.println("Reply: "+replyStr);
 						
 					// Send the reply.
