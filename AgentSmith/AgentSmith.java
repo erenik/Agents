@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.OutputStreamWriter;
 
+
 /**
 This example shows a minimal agent that just prints "Hallo World!" 
 and then terminates.
@@ -40,8 +41,26 @@ public class AgentSmith extends Agent {
 	
 	private Gui gui;
 	
+	/// Default messages that may be sent and replied to.
+	
+	
+	static ArrayList<String> RequestMessages()
+	{
+		List<String> messages;
+		messages.add("Who are you?");
+		messages.add("");
+	}
+	static String ReplyForRequest(String request)
+	{
+		if (request == "Who are you?")
+			return "Agent Smith: Me? I guess you could say, that I am the Alpha... ";
+		return "...";
+	}
+	
 	// setup agent
-	protected void setup() {
+	protected void setup() 
+	{
+		
 		// some nice quote
         System.out.println("'Never send a human to do a machine's job.' - Agent " + getLocalName());
         // initializes the gui
@@ -60,14 +79,11 @@ public class AgentSmith extends Agent {
         dfd.setName(getAID());
         dfd.addServices(sd);
         try {
-        DFService.register(this,dfd);
+			DFService.register(this,dfd);
         } catch (FIPAException e) {
-        System.err.println(getLocalName()+" registration with DF unsucceeded. Reason: "+e.getMessage());
-        doDelete();
-        }
-        
-        
-        
+			System.err.println(getLocalName()+" registration with DF unsucceeded. Reason: "+e.getMessage());
+			doDelete();
+        }    
     }
 	
 	// performs action when something is interacting with the GUI
@@ -75,8 +91,8 @@ public class AgentSmith extends Agent {
         // nothing yet
     }
 	
-	protected ArrayList<String> scanForAgents() {
-		// TODO
+	protected ArrayList<String> scanForAgents() 
+	{
 		ArrayList<String> agents = new ArrayList<String>();
         try {
             SearchConstraints sc = new SearchConstraints();
@@ -94,12 +110,10 @@ public class AgentSmith extends Agent {
         }
 		return agents;
 	}
-	
-	
 }
 
-class Gui extends JFrame implements ActionListener {
-
+class Gui extends JFrame implements ActionListener 
+{
     private AgentSmith myAgent;
     public JButton B;
     private JPanel contentPane;
@@ -119,6 +133,11 @@ class Gui extends JFrame implements ActionListener {
 		JComboBox message = new JComboBox();
 		message.setBounds(10, 33, 205, 23);
 		contentPane.add(message);
+		
+		/// Add messages
+		List<String> messages = AgentSmith.RequestMessages();
+		for (int i = 0; i < messages.Size(); ++i)
+			message.addItem(s);
 		
 		JButton btnKillAllHumanity = new JButton("Kill All Humanity");
 		btnKillAllHumanity.setBounds(10, 215, 205, 23);
@@ -161,7 +180,7 @@ class Gui extends JFrame implements ActionListener {
 			}
 		});
 		contentPane.add(btnScanForAgents);
-		
+				
 		JButton btnSendThreat = new JButton("Send Threat");
 		btnSendThreat.setBounds(10, 136, 205, 23);
 		contentPane.add(btnSendThreat);
