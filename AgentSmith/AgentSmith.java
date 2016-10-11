@@ -112,6 +112,7 @@ public class AgentSmith extends Agent {
 					}
 					if (performative.equals("REQUEST"))
 					{
+						Log(senderName+" REQUEST: "+content);
 						if (content.equals("Kill"))
 						{
 							doDelete(); // Kill self.
