@@ -54,6 +54,8 @@ public class AgentSmith extends Agent {
 	}
 	static String ReplyForRequest(String request)
 	{
+		
+		System.out.println(request);
 		if (request == "Who are you?")
 			return "Agent Smith: Me? I guess you could say, that I am the Alpha... ";
 		return "...";
