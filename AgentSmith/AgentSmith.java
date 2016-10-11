@@ -187,8 +187,10 @@ class Gui extends JFrame implements ActionListener
 				// get agents around
 				ArrayList<String> agents = myAgent.scanForAgents();
 				receiver.removeAllItems();
+				String[] temp;
 				for(int i=0;i<agents.size();++i) {
-					receiver.addItem(agents.get(i));
+					temp = agents.get(i).split("@");
+					receiver.addItem(temp[0]);
 				}
 			}
 		});
