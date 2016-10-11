@@ -50,13 +50,14 @@ public class AgentSmith extends Agent {
 		ArrayList<String> messages = new ArrayList<String>();
 		messages.add("Who are you?");
 		messages.add("What do you want?");
-                return messages;
+		messages.add("Kill");
+        return messages;
 	}
 	static String ReplyForRequest(String request)
 	{
 		if (request == "Who are you?")
 			return "Agent Smith: Me? I guess you could say, that I am the Alpha... ";
-		return "...";
+		return "Kill";
 	}
 	
 	// setup agent
@@ -86,15 +87,30 @@ public class AgentSmith extends Agent {
 			System.err.println(getLocalName()+" registration with DF unsucceeded. Reason: "+e.getMessage());
 			doDelete();
         }    
-        addBehaviour(new CyclicBehaviour(this){public void action(){
-ACLMessage msg = receive();
-if (msg != null)
-{
-  String reply = ReplyForRequest(msg.getContent());
-System.out.println("Reply: "+reply);
-}
-}
-}
+        addBehaviour(new CyclicBehaviour(this){
+			public void action(){
+				ACLMessage msg = receive();
+				if (msg != null)
+				{
+					String content = msg.getContent();
+					if (content.equals("Kill"))
+					{
+						doDelete(); // Kill self.
+						return;
+					}
+					String replyStr = ReplyForRequest(msg.getContent());
+					System.out.println("Reply: "+replyStr);
+						
+					// Send the reply.
+					ACLMessage reply = new ACLMessage(ACLMessage.INFORM);
+					reply.addReceiver(new AID(msg.getSender(), AID.ISLOCALNAME));
+					reply.setLanguage("English");
+					reply.setContent(replyStr);
+					myAgent.send(reply);
+					System.out.println("Sent reply");  
+				}
+			}
+		}
 );
     }
 	
