@@ -130,7 +130,7 @@ class Gui extends JFrame implements ActionListener
     public JButton B;
     private JPanel contentPane;
     private JTextArea log;
-    public JComboBox receiver;
+    public JComboBox<String> receiver;
 
     protected void frameInit() {
         super.frameInit();
