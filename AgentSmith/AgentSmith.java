@@ -46,9 +46,10 @@ public class AgentSmith extends Agent {
 	
 	static ArrayList<String> RequestMessages()
 	{
-		List<String> messages;
+		ArrayList<String> messages = new ArrayList<String>();
 		messages.add("Who are you?");
-		messages.add("");
+		messages.add("What do you want?");
+return messages;
 	}
 	static String ReplyForRequest(String request)
 	{
@@ -135,9 +136,10 @@ class Gui extends JFrame implements ActionListener
 		contentPane.add(message);
 		
 		/// Add messages
-		List<String> messages = AgentSmith.RequestMessages();
-		for (int i = 0; i < messages.Size(); ++i)
-			message.addItem(s);
+		message.removeAllItems();
+                ArrayList<String> messages = AgentSmith.RequestMessages();
+		for (int i = 0; i < messages.size(); ++i)
+			message.addItem(messages.get(i));
 		
 		JButton btnKillAllHumanity = new JButton("Kill All Humanity");
 		btnKillAllHumanity.setBounds(10, 215, 205, 23);
