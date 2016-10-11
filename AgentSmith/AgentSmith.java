@@ -223,4 +223,3 @@ class ReceiveMessage extends CyclicBehaviour {
         }
 
     }
-}
