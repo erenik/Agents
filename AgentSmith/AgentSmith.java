@@ -3,7 +3,11 @@ import jade.core.*;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.gui.*;
+import java.lang.Long;
 
+import jade.domain.FIPAAgentManagement.SearchConstraints;
+import jade.domain.AMSService;
+import jade.domain.FIPAAgentManagement.AMSAgentDescription;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -37,6 +41,21 @@ public class AgentSmith extends GuiAgent {
 	
 	protected ArrayList<String> scanForAgents() {
 		// TODO
+ArrayList<String> agents = new ArrayList<String>();
+            try {
+            SearchConstraints sc = new SearchConstraints();
+            sc.setMaxResults(new java.lang.Long(-1)); // Max unlimited results
+            AMSAgentDescription[] evalAgents = AMSService.search(this, new AMSAgentDescription(), sc);
+for (int i = 0; i < evalAgents.length; ++i)
+{
+String name = evalAgents[i].getName().getName();
+System.out.println("Found an agent: "+i+" "+name);
+agents.Add(name);
+}
+           } catch(Exception e)
+{
+System.out.println("Exception in scanForAgents: "+e.toString());
+}
 		return null;
 	}
 	
