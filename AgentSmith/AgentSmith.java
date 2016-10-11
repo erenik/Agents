@@ -129,7 +129,7 @@ public class AgentSmith extends Agent {
 						reply.setLanguage("English");
 						reply.setContent(replyStr);
 						myAgent.send(reply);
-						System.out.println("Sent reply");  
+						Log("-> "+senderNameOnly+" : "+replyStr);
 					}
 					else 
 					{
