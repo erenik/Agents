@@ -45,6 +45,12 @@ public class AgentSmith extends Agent {
 	/// Default messages that may be sent and replied to.
 //public static String targetAgent = "ReplaceMe";	
 	
+	// Logs text. Is printed both to std out and to the gui?
+	void Log(String txt)
+	{
+		gui.Log(txt);
+	}
+	
 	static ArrayList<String> RequestMessages()
 	{
 		ArrayList<String> messages = new ArrayList<String>();
@@ -90,30 +96,42 @@ public class AgentSmith extends Agent {
 			doDelete();
         }    
         addBehaviour(new CyclicBehaviour(this){
-			public void action(){
+			public void action()
+			{
 				ACLMessage msg = receive();
 				if (msg != null)
 				{
 					String content = msg.getContent();
 					String performative = msg.getPerformative(msg.getPerformative());
-					if (performative.equals("REQUEST") == false)
-						return; // Reply only to requests. Avoid loops.
-
-					if (content.equals("Kill"))
+					String senderName = msg.getSender().getName();
+					if (performative.equals("INFORM"))
 					{
-						doDelete(); // Kill self.
-						return;
+						Log(senderName+": "+content)
 					}
-					String replyStr = ReplyForRequest(msg.getContent());						
-					System.out.println("Reply: "+replyStr);
-						
-					// Send the reply.
-					ACLMessage reply = new ACLMessage(ACLMessage.INFORM);
-					reply.addReceiver(new AID(msg.getSender().getName(), AID.ISLOCALNAME));
-					reply.setLanguage("English");
-					reply.setContent(replyStr);
-					myAgent.send(reply);
-					System.out.println("Sent reply");  
+					if (performative.equals("REQUEST"))
+					{
+						if (content.equals("Kill"))
+						{
+							doDelete(); // Kill self.
+							// Kill program too?
+							System.exit(1);
+							return;
+						}
+						String replyStr = ReplyForRequest(content);						
+						System.out.println("Reply: "+replyStr);
+							
+						// Send the reply.
+						ACLMessage reply = new ACLMessage(ACLMessage.INFORM);
+						reply.addReceiver(new AID(senderName, AID.ISLOCALNAME));
+						reply.setLanguage("English");
+						reply.setContent(replyStr);
+						myAgent.send(reply);
+						System.out.println("Sent reply");  
+					}
+					else 
+					{
+						System.out.println("Received message of performative: "+performative);
+					}
 				}
 			}
 		}
@@ -154,6 +172,11 @@ class Gui extends JFrame implements ActionListener
     private JTextArea log;
     public JComboBox<String> receiver, message;
 
+	public void Log(String txt)
+	{
+		log.append("\n"+txt);
+	}
+	
     protected void frameInit() {
         super.frameInit();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -226,15 +249,19 @@ class Gui extends JFrame implements ActionListener
 			{
 				// Send a default message for now.
 				ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-				msg.addReceiver(new AID(receiver.getItemAt(receiver.getSelectedIndex()), AID.ISLOCALNAME));
+				String receiverName = receiver.getItemAt(receiver.getSelectedIndex());
+				msg.addReceiver(new AID(receiverName, AID.ISLOCALNAME));
 				msg.setLanguage("English");
-				msg.setContent(message.getItemAt(message.getSelectedIndex()));
+				String messageStr = message.getItemAt(message.getSelectedIndex());
+				msg.setContent(messageStr);
 				myAgent.send(msg);
 				System.out.println("Sent message");  
+				Log("Sending message \""+messageStr+"\" to "+receiverName);
 			}	
 		});
 		
 		setVisible(true);
+		myAgent.gui = this; // Link gui inside the agent so that it can be used.
     }
 
     public void setAgent(AgentSmith a) {
