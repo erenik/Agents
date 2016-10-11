@@ -152,7 +152,7 @@ class Gui extends JFrame implements ActionListener
     public JButton B;
     private JPanel contentPane;
     private JTextArea log;
-    public JComboBox<String> receiver;
+    public JComboBox<String> receiver, message;
 
     protected void frameInit() {
         super.frameInit();
@@ -164,7 +164,7 @@ class Gui extends JFrame implements ActionListener
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox message = new JComboBox<String>();
+		message = new JComboBox<String>();
 		message.setBounds(10, 33, 205, 23);
 		contentPane.add(message);
 		
