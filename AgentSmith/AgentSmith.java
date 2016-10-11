@@ -102,7 +102,7 @@ public class AgentSmith extends Agent {
             {
             	String name = evalAgents[i].getName().getName();
             	System.out.println("Found an agent: "+i+" "+name);
-            	agents.Add(name);
+            	agents.add(name);
             }
         } catch(Exception e)
         {
@@ -207,13 +207,13 @@ class Gui extends JFrame implements ActionListener
 class SendMessage extends OneShotBehaviour {
 
     public void action() {
-        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+        /*ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
         msg.addReceiver(new AID("R", AID.ISLOCALNAME));
         msg.setLanguage("English");
         msg.setContent("Hello How Are You?");
         send(msg);
         System.out.println("****I Sent Message to::> R1 *****"+"\n"+
-                            "The Content of My Message is::>"+ msg.getContent());
+                            "The Content of My Message is::>"+ msg.getContent());*/
     }
 }
 
@@ -227,7 +227,7 @@ class ReceiveMessage extends CyclicBehaviour {
 
 
     public void action() {
-        ACLMessage msg = receive();
+        /*ACLMessage msg = receive();
         if(msg != null) {
 
             Message_Performative = msg.getPerformative(msg.getPerformative());
@@ -237,9 +237,8 @@ class ReceiveMessage extends CyclicBehaviour {
                     "The Sender Name is::>"+ SenderName+"\n"+
                     "The Content of the Message is::> " + Message_Content + "\n"+
                     "::: And Performative is::> " + Message_Performative + "\n");
-            System.out.println("ooooooooooooooooooooooooooooooooooooooo");
+            System.out.println("ooooooooooooooooooooooooooooooooooooooo");*/
 
         }
 
     }
-}
