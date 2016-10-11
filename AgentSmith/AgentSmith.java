@@ -5,7 +5,6 @@ import jade.lang.acl.ACLMessage;
 import jade.gui.*;
 import java.lang.Long;
 
-import jade.domain.FIPAAgentManagement.SearchConstraints;
 import jade.domain.AMSService;
 import jade.domain.FIPAAgentManagement.AMSAgentDescription;
 import javax.swing.*;
@@ -13,6 +12,24 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.event.*;
 import java.util.ArrayList;
+import jade.domain.*;
+import jade.domain.FIPAAgentManagement.*;
+import jade.lang.acl.*;
+import jade.content.*;
+import jade.content.lang.*;
+import jade.content.lang.sl.*;
+import jade.content.onto.*;
+import jade.content.onto.basic.*;
+import jade.util.leap.*;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
+
+import java.util.Iterator;
+import java.util.Date;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
 
 /**
 This example shows a minimal agent that just prints "Hallo World!" 
@@ -78,45 +95,7 @@ public class AgentSmith extends Agent {
 		return agents;
 	}
 	
-	public class SendMessage extends OneShotBehaviour {
-
-	    public void action() {
-	        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-	        msg.addReceiver(new AID("R", AID.ISLOCALNAME));
-	        msg.setLanguage("English");
-	        msg.setContent("Hello How Are You?");
-	        send(msg);
-	        System.out.println("****I Sent Message to::> R1 *****"+"\n"+
-	                            "The Content of My Message is::>"+ msg.getContent());
-	    }
-	}
-
-	public class ReceiveMessage extends CyclicBehaviour {
-
-	    // Variable to Hold the content of the received Message
-	    private String Message_Performative;
-	    private String Message_Content;
-	    private String SenderName;
-	    private String MyPlan;
-
-
-	    public void action() {
-	        ACLMessage msg = receive();
-	        if(msg != null) {
-
-	            Message_Performative = msg.getPerformative(msg.getPerformative());
-	            Message_Content = msg.getContent();
-	            SenderName = msg.getSender().getLocalName();
-	            System.out.println(" ****I Received a Message***" +"\n"+
-	                    "The Sender Name is::>"+ SenderName+"\n"+
-	                    "The Content of the Message is::> " + Message_Content + "\n"+
-	                    "::: And Performative is::> " + Message_Performative + "\n");
-	            System.out.println("ooooooooooooooooooooooooooooooooooooooo");
-
-	        }
-
-	    }
-	}
+	
 }
 
 class Gui extends JFrame implements ActionListener {
@@ -210,3 +189,42 @@ class Gui extends JFrame implements ActionListener {
     }
 }
 
+class SendMessage extends OneShotBehaviour {
+
+    public void action() {
+        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+        msg.addReceiver(new AID("R", AID.ISLOCALNAME));
+        msg.setLanguage("English");
+        msg.setContent("Hello How Are You?");
+        send(msg);
+        System.out.println("****I Sent Message to::> R1 *****"+"\n"+
+                            "The Content of My Message is::>"+ msg.getContent());
+    }
+}
+
+class ReceiveMessage extends CyclicBehaviour {
+
+    // Variable to Hold the content of the received Message
+    private String Message_Performative;
+    private String Message_Content;
+    private String SenderName;
+    private String MyPlan;
+
+
+    public void action() {
+        ACLMessage msg = receive();
+        if(msg != null) {
+
+            Message_Performative = msg.getPerformative(msg.getPerformative());
+            Message_Content = msg.getContent();
+            SenderName = msg.getSender().getLocalName();
+            System.out.println(" ****I Received a Message***" +"\n"+
+                    "The Sender Name is::>"+ SenderName+"\n"+
+                    "The Content of the Message is::> " + Message_Content + "\n"+
+                    "::: And Performative is::> " + Message_Performative + "\n");
+            System.out.println("ooooooooooooooooooooooooooooooooooooooo");
+
+        }
+
+    }
+}
