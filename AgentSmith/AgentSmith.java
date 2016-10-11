@@ -104,15 +104,15 @@ public class AgentSmith extends Agent {
 				{
 					String content = msg.getContent();
 					String performative = msg.getPerformative(msg.getPerformative());
-					String senderName = msg.getSender().getName();
-					String senderNameOnly = senderName.split("@")[0];
+					String senderName = msg.getSender().getName(); // Name + IP
+					String senderNameOnly = senderName.split("@")[0]; // Given Name only
 					if (performative.equals("INFORM"))
 					{
-						Log(senderName+": "+content);
+						Log(senderNameOnly+": "+content);
 					}
 					if (performative.equals("REQUEST"))
 					{
-						Log(senderName+" REQUEST: "+content);
+						Log(senderNameOnly+" Req: "+content);
 						if (content.equals("Kill"))
 						{
 							doDelete(); // Kill self.
