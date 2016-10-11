@@ -177,11 +177,7 @@ class Gui extends JFrame implements ActionListener {
     public void actionPerformed(java.awt.event.ActionEvent ae) {
         // TODO add your handling code here:
 
-        GuiEvent ge = new GuiEvent(this, 1);
-
-        if (ae.getSource() == this.B) {
-            myAgent.postGuiEvent(ge);
-        }
+        addLog(ae.getActionCommand());
     }
     
     public void addLog(String msg) {
