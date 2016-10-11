@@ -5,6 +5,8 @@ import jade.lang.acl.ACLMessage;
 import jade.gui.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.event.*;
 
 /**
@@ -37,29 +39,49 @@ public class AgentSmith extends GuiAgent {
 class Gui extends JFrame implements ActionListener {
 
     private AgentSmith myAgent;
-    public JButton B;
-    private JToolBar jToolBar1;
+    private JPanel contentPane;
 
     protected void frameInit() {
         super.frameInit();
-        setSize(500, 300);
-        setTitle("I am an Agent GUI, Click my Button to Get My Agent's Name");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        jToolBar1 = new JToolBar();
-        this.add(jToolBar1);
-        B = new JButton();
-        B.setFont(new java.awt.Font("Arial", 0, 14));
-
-//    B.setSize(10, 10);
-        B.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        B.setFocusable(true);
-        B.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        B.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        B.setText("Get Agent Name");
-        jToolBar1.add(B);
-        B.addActionListener(this);
-        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		setTitle("Agent Smith Control center");
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JComboBox message = new JComboBox();
+		message.setBounds(10, 33, 205, 23);
+		contentPane.add(message);
+		
+		JButton btnKillAllHumanity = new JButton("Kill All Humanity");
+		btnKillAllHumanity.setBounds(23, 215, 134, 23);
+		contentPane.add(btnKillAllHumanity);
+		
+		JButton btnCallAnotherAgent = new JButton("Call Another Agent");
+		btnCallAnotherAgent.setBounds(261, 215, 134, 23);
+		contentPane.add(btnCallAnotherAgent);
+		
+		JLabel lblMessage = new JLabel("Message");
+		lblMessage.setBounds(23, 11, 55, 14);
+		contentPane.add(lblMessage);
+		
+		JLabel lblReceiver = new JLabel("Receiver");
+		lblReceiver.setBounds(20, 77, 46, 14);
+		contentPane.add(lblReceiver);
+		
+		JComboBox receiver = new JComboBox();
+		receiver.setBounds(10, 102, 205, 23);
+		contentPane.add(receiver);
+		
+		JTextArea log = new JTextArea();
+		log.setBounds(272, 32, 123, 165);
+		contentPane.add(log);
+		
+		JLabel lblLog = new JLabel("Log");
+		lblLog.setBounds(272, 11, 46, 14);
+		contentPane.add(lblLog);
     }
 
     public void setAgent(AgentSmith a) {
