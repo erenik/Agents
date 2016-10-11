@@ -40,7 +40,7 @@ and then terminates.
  */
 public class AgentSmith extends Agent {
 	
-	private Gui gui;
+	public Gui gui;
 	
 	/// Default messages that may be sent and replied to.
 //public static String targetAgent = "ReplaceMe";	
@@ -106,7 +106,7 @@ public class AgentSmith extends Agent {
 					String senderName = msg.getSender().getName();
 					if (performative.equals("INFORM"))
 					{
-						Log(senderName+": "+content)
+						Log(senderName+": "+content);
 					}
 					if (performative.equals("REQUEST"))
 					{
@@ -261,7 +261,7 @@ class Gui extends JFrame implements ActionListener
 		});
 		
 		setVisible(true);
-		myAgent.gui = this; // Link gui inside the agent so that it can be used.
+
     }
 
     public void setAgent(AgentSmith a) {
