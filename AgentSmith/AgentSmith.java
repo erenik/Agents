@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
 This example shows a minimal agent that just prints "Hallo World!" 
@@ -34,6 +35,10 @@ public class AgentSmith extends GuiAgent {
         // nothing yet
     }
 	
+	protected ArrayList<String> scanForAgents() {
+		// TODO
+	}
+	
 	
 }
 
@@ -43,7 +48,7 @@ class Gui extends JFrame implements ActionListener {
     public JButton B;
     private JPanel contentPane;
     private JTextArea log;
-    private JComboBox receiver;
+    public JComboBox receiver;
 
     protected void frameInit() {
         super.frameInit();
@@ -75,7 +80,7 @@ class Gui extends JFrame implements ActionListener {
 		lblReceiver.setBounds(20, 77, 195, 14);
 		contentPane.add(lblReceiver);
 		
-		receiver = new JComboBox();
+		receiver = new JComboBox<String>();
 		receiver.setBounds(10, 102, 205, 23);
 		contentPane.add(receiver);
 		
@@ -86,6 +91,24 @@ class Gui extends JFrame implements ActionListener {
 		JLabel lblLog = new JLabel("Log");
 		lblLog.setBounds(240, 11, 184, 14);
 		contentPane.add(lblLog);
+		
+		JButton btnScanForAgents = new JButton("Scan For Agents");
+		btnScanForAgents.setBounds(10, 174, 205, 23);
+		btnScanForAgents.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// get agents around
+				ArrayList<String> agents = myAgent.scanForAgents();
+				receiver.removeAllItems();
+				for(int i=0;i<agents.size();++i) {
+					receiver.addItem(agents.get(i));
+				}
+			}
+		});
+		contentPane.add(btnScanForAgents);
+		
+		JButton btnSendThreat = new JButton("Send Threat");
+		btnSendThreat.setBounds(10, 136, 205, 23);
+		contentPane.add(btnSendThreat);
 		
 		
 		setVisible(true);
