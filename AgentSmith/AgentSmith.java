@@ -228,7 +228,7 @@ class Gui extends JFrame implements ActionListener
 				ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 				msg.addReceiver(new AID(receiver.getItemAt(receiver.getSelectedIndex()), AID.ISLOCALNAME));
 				msg.setLanguage("English");
-				msg.setContent("Who are you?");
+				msg.setContent(message.getItemAt(message.getSelectedIndex()));
 				myAgent.send(msg);
 				System.out.println("Sent message");  
 			}	
