@@ -78,7 +78,45 @@ public class AgentSmith extends Agent {
 		return agents;
 	}
 	
-	
+	public class SendMessage extends OneShotBehaviour {
+
+	    public void action() {
+	        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+	        msg.addReceiver(new AID("R", AID.ISLOCALNAME));
+	        msg.setLanguage("English");
+	        msg.setContent("Hello How Are You?");
+	        send(msg);
+	        System.out.println("****I Sent Message to::> R1 *****"+"\n"+
+	                            "The Content of My Message is::>"+ msg.getContent());
+	    }
+	}
+
+	public class ReceiveMessage extends CyclicBehaviour {
+
+	    // Variable to Hold the content of the received Message
+	    private String Message_Performative;
+	    private String Message_Content;
+	    private String SenderName;
+	    private String MyPlan;
+
+
+	    public void action() {
+	        ACLMessage msg = receive();
+	        if(msg != null) {
+
+	            Message_Performative = msg.getPerformative(msg.getPerformative());
+	            Message_Content = msg.getContent();
+	            SenderName = msg.getSender().getLocalName();
+	            System.out.println(" ****I Received a Message***" +"\n"+
+	                    "The Sender Name is::>"+ SenderName+"\n"+
+	                    "The Content of the Message is::> " + Message_Content + "\n"+
+	                    "::: And Performative is::> " + Message_Performative + "\n");
+	            System.out.println("ooooooooooooooooooooooooooooooooooooooo");
+
+	        }
+
+	    }
+	}
 }
 
 class Gui extends JFrame implements ActionListener {
@@ -172,42 +210,3 @@ class Gui extends JFrame implements ActionListener {
     }
 }
 
-public class SendMessage extends OneShotBehaviour {
-
-    public void action() {
-        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        msg.addReceiver(new AID("R", AID.ISLOCALNAME));
-        msg.setLanguage("English");
-        msg.setContent("Hello How Are You?");
-        send(msg);
-        System.out.println("****I Sent Message to::> R1 *****"+"\n"+
-                            "The Content of My Message is::>"+ msg.getContent());
-    }
-}
-
-public class ReceiveMessage extends CyclicBehaviour {
-
-    // Variable to Hold the content of the received Message
-    private String Message_Performative;
-    private String Message_Content;
-    private String SenderName;
-    private String MyPlan;
-
-
-    public void action() {
-        ACLMessage msg = receive();
-        if(msg != null) {
-
-            Message_Performative = msg.getPerformative(msg.getPerformative());
-            Message_Content = msg.getContent();
-            SenderName = msg.getSender().getLocalName();
-            System.out.println(" ****I Received a Message***" +"\n"+
-                    "The Sender Name is::>"+ SenderName+"\n"+
-                    "The Content of the Message is::> " + Message_Content + "\n"+
-                    "::: And Performative is::> " + Message_Performative + "\n");
-            System.out.println("ooooooooooooooooooooooooooooooooooooooo");
-
-        }
-
-    }
-}
