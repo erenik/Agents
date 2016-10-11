@@ -57,19 +57,19 @@ class Gui extends JFrame implements ActionListener {
 		contentPane.add(message);
 		
 		JButton btnKillAllHumanity = new JButton("Kill All Humanity");
-		btnKillAllHumanity.setBounds(23, 215, 134, 23);
+		btnKillAllHumanity.setBounds(10, 215, 205, 23);
 		contentPane.add(btnKillAllHumanity);
 		
 		JButton btnCallAnotherAgent = new JButton("Call Another Agent");
-		btnCallAnotherAgent.setBounds(261, 215, 134, 23);
+		btnCallAnotherAgent.setBounds(225, 215, 199, 23);
 		contentPane.add(btnCallAnotherAgent);
 		
 		JLabel lblMessage = new JLabel("Message");
-		lblMessage.setBounds(23, 11, 55, 14);
+		lblMessage.setBounds(23, 11, 192, 14);
 		contentPane.add(lblMessage);
 		
 		JLabel lblReceiver = new JLabel("Receiver");
-		lblReceiver.setBounds(20, 77, 46, 14);
+		lblReceiver.setBounds(20, 77, 195, 14);
 		contentPane.add(lblReceiver);
 		
 		JComboBox receiver = new JComboBox();
@@ -77,11 +77,11 @@ class Gui extends JFrame implements ActionListener {
 		contentPane.add(receiver);
 		
 		JTextArea log = new JTextArea();
-		log.setBounds(272, 32, 123, 165);
+		log.setBounds(225, 32, 199, 165);
 		contentPane.add(log);
 		
 		JLabel lblLog = new JLabel("Log");
-		lblLog.setBounds(272, 11, 46, 14);
+		lblLog.setBounds(240, 11, 184, 14);
 		contentPane.add(lblLog);
     }
 
