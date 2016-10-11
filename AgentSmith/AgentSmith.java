@@ -48,6 +48,7 @@ public class AgentSmith extends Agent {
 	// Logs text. Is printed both to std out and to the gui?
 	void Log(String txt)
 	{
+		System.out.println("AgentSmith.Log: "+txt);
 		gui.Log(txt);
 	}
 	
@@ -104,6 +105,7 @@ public class AgentSmith extends Agent {
 					String content = msg.getContent();
 					String performative = msg.getPerformative(msg.getPerformative());
 					String senderName = msg.getSender().getName();
+					String senderNameOnly = senderName.split("@")[0];
 					if (performative.equals("INFORM"))
 					{
 						Log(senderName+": "+content);
@@ -122,7 +124,7 @@ public class AgentSmith extends Agent {
 							
 						// Send the reply.
 						ACLMessage reply = new ACLMessage(ACLMessage.INFORM);
-						reply.addReceiver(new AID(senderName, AID.ISLOCALNAME));
+						reply.addReceiver(new AID(senderNameOnly, AID.ISLOCALNAME));
 						reply.setLanguage("English");
 						reply.setContent(replyStr);
 						myAgent.send(reply);
@@ -174,6 +176,7 @@ class Gui extends JFrame implements ActionListener
 
 	public void Log(String txt)
 	{
+		System.out.println("Gui.Log: "+txt);
 		log.append("\n"+txt);
 	}
 	
@@ -255,7 +258,7 @@ class Gui extends JFrame implements ActionListener
 				String messageStr = message.getItemAt(message.getSelectedIndex());
 				msg.setContent(messageStr);
 				myAgent.send(msg);
-				System.out.println("Sent message");  
+//				System.out.println("Sent message");  
 				Log("Sending message \""+messageStr+"\" to "+receiverName);
 			}	
 		});
