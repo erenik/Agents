@@ -43,7 +43,7 @@ public class AgentSmith extends Agent {
 	private Gui gui;
 	
 	/// Default messages that may be sent and replied to.
-public static String targetAgent = "ReplaceMe";	
+//public static String targetAgent = "ReplaceMe";	
 	
 	static ArrayList<String> RequestMessages()
 	{
@@ -197,18 +197,18 @@ class Gui extends JFrame implements ActionListener
 		JButton btnSendThreat = new JButton("Send Threat");
 		btnSendThreat.setBounds(10, 136, 205, 23);
 		contentPane.add(btnSendThreat);
-	btnSendThreat.addActionListener(new ActionListener() {
-public void actionPerformed(ActionEvent arg0)
-{
- // Send a default message for now.
-ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-msg.addReceiver(new AID(AgentSmith.targetAgent, AID.ISLOCALNAME));
-msg.setLanguage("English");
-msg.setContent("Who are you?");
-myAgent.send(msg);
-System.out.println("Sent message");  
-}	}
-);
+		btnSendThreat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0)
+			{
+				// Send a default message for now.
+				ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+				msg.addReceiver(new AID(receiver.getSelectedItem(), AID.ISLOCALNAME));
+				msg.setLanguage("English");
+				msg.setContent("Who are you?");
+				myAgent.send(msg);
+				System.out.println("Sent message");  
+			}	
+		});
 		
 		setVisible(true);
     }
