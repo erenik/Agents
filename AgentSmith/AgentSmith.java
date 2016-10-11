@@ -19,7 +19,7 @@ This example shows a minimal agent that just prints "Hallo World!"
 and then terminates.
 @author Giovanni Caire - TILAB
  */
-public class AgentSmith extends GuiAgent {
+public class AgentSmith extends Agent {
 	
 	private Gui gui;
 	
@@ -32,6 +32,25 @@ public class AgentSmith extends GuiAgent {
         // associates the gui
         gui.setAgent(this);
         gui.addLog("'Never send a human to do a machine's job.' - Agent " + getLocalName());
+        
+        /** Registration with the DF */
+        DFAgentDescription dfd = new DFAgentDescription();
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("SenderAgent");
+        sd.setName(getName());
+        sd.setOwnership("ExampleReceiversOfJADE");
+        sd.addOntologies("SenderAgent");
+        dfd.setName(getAID());
+        dfd.addServices(sd);
+        try {
+        DFService.register(this,dfd);
+        } catch (FIPAException e) {
+        System.err.println(getLocalName()+" registration with DF unsucceeded. Reason: "+e.getMessage());
+        doDelete();
+        }
+        
+        
+        
     }
 	
 	// performs action when something is interacting with the GUI
@@ -41,22 +60,22 @@ public class AgentSmith extends GuiAgent {
 	
 	protected ArrayList<String> scanForAgents() {
 		// TODO
-ArrayList<String> agents = new ArrayList<String>();
-            try {
+		ArrayList<String> agents = new ArrayList<String>();
+        try {
             SearchConstraints sc = new SearchConstraints();
             sc.setMaxResults(new java.lang.Long(-1)); // Max unlimited results
             AMSAgentDescription[] evalAgents = AMSService.search(this, new AMSAgentDescription(), sc);
-for (int i = 0; i < evalAgents.length; ++i)
-{
-String name = evalAgents[i].getName().getName();
-System.out.println("Found an agent: "+i+" "+name);
-agents.Add(name);
-}
-           } catch(Exception e)
-{
-System.out.println("Exception in scanForAgents: "+e.toString());
-}
-		return null;
+            for (int i = 0; i < evalAgents.length; ++i)
+            {
+            	String name = evalAgents[i].getName().getName();
+            	System.out.println("Found an agent: "+i+" "+name);
+            	agents.Add(name);
+            }
+        } catch(Exception e)
+        {
+        	System.out.println("Exception in scanForAgents: "+e.toString());
+        }
+		return agents;
 	}
 	
 	
@@ -150,5 +169,45 @@ class Gui extends JFrame implements ActionListener {
     
     public void addLog(String msg) {
     	this.log.setText(this.log.getText()+"/n"+msg);
+    }
+}
+
+public class SendMessage extends OneShotBehaviour {
+
+    public void action() {
+        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+        msg.addReceiver(new AID("R", AID.ISLOCALNAME));
+        msg.setLanguage("English");
+        msg.setContent("Hello How Are You?");
+        send(msg);
+        System.out.println("****I Sent Message to::> R1 *****"+"\n"+
+                            "The Content of My Message is::>"+ msg.getContent());
+    }
+}
+
+public class ReceiveMessage extends CyclicBehaviour {
+
+    // Variable to Hold the content of the received Message
+    private String Message_Performative;
+    private String Message_Content;
+    private String SenderName;
+    private String MyPlan;
+
+
+    public void action() {
+        ACLMessage msg = receive();
+        if(msg != null) {
+
+            Message_Performative = msg.getPerformative(msg.getPerformative());
+            Message_Content = msg.getContent();
+            SenderName = msg.getSender().getLocalName();
+            System.out.println(" ****I Received a Message***" +"\n"+
+                    "The Sender Name is::>"+ SenderName+"\n"+
+                    "The Content of the Message is::> " + Message_Content + "\n"+
+                    "::: And Performative is::> " + Message_Performative + "\n");
+            System.out.println("ooooooooooooooooooooooooooooooooooooooo");
+
+        }
+
     }
 }
