@@ -18,6 +18,7 @@ import jade.lang.acl.*;
 import jade.content.*;
 import jade.content.lang.*;
 import jade.content.lang.sl.*;
+import jade.lang.acl.ACLMessage;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
 import jade.util.leap.*;
@@ -42,14 +43,14 @@ public class AgentSmith extends Agent {
 	private Gui gui;
 	
 	/// Default messages that may be sent and replied to.
-	
+public static String targetAgent = "ReplaceMe";	
 	
 	static ArrayList<String> RequestMessages()
 	{
 		ArrayList<String> messages = new ArrayList<String>();
 		messages.add("Who are you?");
 		messages.add("What do you want?");
-return messages;
+                return messages;
 	}
 	static String ReplyForRequest(String request)
 	{
@@ -85,6 +86,16 @@ return messages;
 			System.err.println(getLocalName()+" registration with DF unsucceeded. Reason: "+e.getMessage());
 			doDelete();
         }    
+        addBehaviour(new CyclicBehaviour(this){public void action(){
+ACLMessage msg = receive();
+if (msg != null)
+{
+  String reply = ReplyForRequest(msg.getContent());
+System.out.println("Reply: "+reply);
+}
+}
+}
+);
     }
 	
 	// performs action when something is interacting with the GUI
@@ -186,7 +197,18 @@ class Gui extends JFrame implements ActionListener
 		JButton btnSendThreat = new JButton("Send Threat");
 		btnSendThreat.setBounds(10, 136, 205, 23);
 		contentPane.add(btnSendThreat);
-		
+	btnSendThreat.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent arg0)
+{
+ // Send a default message for now.
+ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+msg.addReceiver(new AID(AgentSmith.targetAgent, AID.ISLOCALNAME));
+msg.setLanguage("English");
+msg.setContent("Who are you?");
+myAgent.send(msg);
+System.out.println("Sent message");  
+}	}
+);
 		
 		setVisible(true);
     }
