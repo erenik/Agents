@@ -39,14 +39,15 @@ public class AgentSmith extends GuiAgent {
 class Gui extends JFrame implements ActionListener {
 
     private AgentSmith myAgent;
+    public JButton B;
     private JPanel contentPane;
 
     protected void frameInit() {
         super.frameInit();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		setTitle("Agent Smith Control center");
 		contentPane = new JPanel();
+		setTitle("Agent Smith Control center");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
