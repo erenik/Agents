@@ -26,6 +26,7 @@ public class AgentSmith extends GuiAgent {
         gui = new Gui();
         // associates the gui
         gui.setAgent(this);
+        gui.addLog("'Never send a human to do a machine's job.' - Agent " + getLocalName());
     }
 	
 	// performs action when something is interacting with the GUI
@@ -41,6 +42,8 @@ class Gui extends JFrame implements ActionListener {
     private AgentSmith myAgent;
     public JButton B;
     private JPanel contentPane;
+    private JTextArea log;
+    private JComboBox receiver;
 
     protected void frameInit() {
         super.frameInit();
@@ -72,11 +75,11 @@ class Gui extends JFrame implements ActionListener {
 		lblReceiver.setBounds(20, 77, 195, 14);
 		contentPane.add(lblReceiver);
 		
-		JComboBox receiver = new JComboBox();
+		receiver = new JComboBox();
 		receiver.setBounds(10, 102, 205, 23);
 		contentPane.add(receiver);
 		
-		JTextArea log = new JTextArea();
+		log = new JTextArea();
 		log.setBounds(225, 32, 199, 165);
 		contentPane.add(log);
 		
@@ -100,5 +103,9 @@ class Gui extends JFrame implements ActionListener {
         if (ae.getSource() == this.B) {
             myAgent.postGuiEvent(ge);
         }
+    }
+    
+    public void addLog(String msg) {
+    	this.log.setText(this.log.getText()+"/n"+msg);
     }
 }
