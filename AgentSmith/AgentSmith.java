@@ -105,7 +105,7 @@ public class AgentSmith extends Agent {
 						
 					// Send the reply.
 					ACLMessage reply = new ACLMessage(ACLMessage.INFORM);
-					reply.addReceiver(new AID(msg.getSender(), AID.ISLOCALNAME));
+					reply.addReceiver(new AID(msg.getSender().getName(), AID.ISLOCALNAME));
 					reply.setLanguage("English");
 					reply.setContent(replyStr);
 					myAgent.send(reply);
