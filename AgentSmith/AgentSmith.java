@@ -25,6 +25,11 @@ import jade.util.leap.*;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 
+import jade.wrapper.ContainerController;
+import jade.wrapper.AgentContainer;
+import jade.wrapper.StaleProxyException;
+import jade.wrapper.*;
+
 import java.util.Iterator;
 import java.util.Date;
 import java.io.FileWriter;
@@ -175,6 +180,7 @@ class Gui extends JFrame implements ActionListener
     private JPanel contentPane;
     private JTextArea log;
     public JComboBox<String> receiver, message;
+    public JButton btnCallAnotherAgent;
 
 	public void Log(String txt)
 	{
@@ -210,7 +216,7 @@ class Gui extends JFrame implements ActionListener
 		
 		
 		// CREATE ANOTHER AGENT
-		JButton btnCallAnotherAgent = new JButton("Call Another Agent");
+		btnCallAnotherAgent = new JButton("Call Another Agent");
 		btnCallAnotherAgent.setBounds(225, 215, 199, 23);
 		btnScanForAgents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
