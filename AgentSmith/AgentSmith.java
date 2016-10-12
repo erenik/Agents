@@ -218,7 +218,7 @@ class Gui extends JFrame implements ActionListener
 		// CREATE ANOTHER AGENT
 		btnCallAnotherAgent = new JButton("Call Another Agent");
 		btnCallAnotherAgent.setBounds(225, 215, 199, 23);
-		btnScanForAgents.addActionListener(new ActionListener() {
+		btnCallAnotherAgent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Get the JADE runtime interface (singleton)
 				jade.core.Runtime runtime = jade.core.Runtime.instance();
