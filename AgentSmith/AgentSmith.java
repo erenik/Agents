@@ -282,7 +282,7 @@ class Gui extends JFrame implements ActionListener
     public void actionPerformed(java.awt.event.ActionEvent ae) {
         // TODO add your handling code here:
 
-        addLog(ae.getActionCommand());
+        Log(ae.getActionCommand());
     }
     
 }
