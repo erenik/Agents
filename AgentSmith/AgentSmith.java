@@ -79,7 +79,7 @@ public class AgentSmith extends Agent {
         gui = new Gui();
         // associates the gui
         gui.setAgent(this);
-        gui.addLog("'Never send a human to do a machine's job.' - Agent " + getLocalName());
+        gui.Log("'Never send a human to do a machine's job.' - Agent " + getLocalName());
         
         /** Registration with the DF */
         DFAgentDescription dfd = new DFAgentDescription();
@@ -157,6 +157,7 @@ public class AgentSmith extends Agent {
             {
             	String name = evalAgents[i].getName().getName();
             	System.out.println("Found an agent: "+i+" "+name);
+            	gui.Log("Found an agent: "+i+" "+name);
             	agents.add(name);
             }
         } catch(Exception e)
@@ -186,7 +187,6 @@ class Gui extends JFrame implements ActionListener
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		setTitle("Agent Smith Control center");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -276,6 +276,7 @@ class Gui extends JFrame implements ActionListener
 
     public void setAgent(AgentSmith a) {
         myAgent = a;
+		setTitle("Agent ".myAgent.getLocalName()." Control center");
     }
 
     public void actionPerformed(java.awt.event.ActionEvent ae) {
@@ -284,9 +285,6 @@ class Gui extends JFrame implements ActionListener
         addLog(ae.getActionCommand());
     }
     
-    public void addLog(String msg) {
-    	this.log.setText(this.log.getText()+"/n"+msg);
-    }
 }
 
 class SendMessage extends OneShotBehaviour {
