@@ -221,9 +221,15 @@ class Gui extends JFrame implements ActionListener
 		receiver.setBounds(10, 102, 205, 23);
 		contentPane.add(receiver);
 		
+		
+		
 		log = new JTextArea();
-		log.setBounds(225, 32, 199, 165);
-		contentPane.add(log);
+		JScrollPane scroll = new JScrollPane(log);
+		scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+		scroll.setHorizontalScrollBarPolicy ( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS );
+		scroll.setBounds(222, 32, 199, 165);
+		//log.setBounds(225, 32, 199, 165);
+		contentPane.add(scroll);
 		
 		JLabel lblLog = new JLabel("Log");
 		lblLog.setBounds(240, 11, 184, 14);
