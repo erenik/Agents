@@ -276,7 +276,7 @@ class Gui extends JFrame implements ActionListener
 
     public void setAgent(AgentSmith a) {
         myAgent = a;
-		setTitle("Agent ".myAgent.getLocalName()." Control center");
+		setTitle("Agent "+myAgent.getLocalName()+" Control center");
     }
 
     public void actionPerformed(java.awt.event.ActionEvent ae) {
