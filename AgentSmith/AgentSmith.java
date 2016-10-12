@@ -191,38 +191,67 @@ class Gui extends JFrame implements ActionListener
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// MESSAGE AREA
 		message = new JComboBox<String>();
 		message.setBounds(10, 33, 205, 23);
 		contentPane.add(message);
 		
-		/// Add messages
+		/// DISPLAY MESSAGES
 		message.removeAllItems();
                 ArrayList<String> messages = AgentSmith.RequestMessages();
 		for (int i = 0; i < messages.size(); ++i)
 			message.addItem(messages.get(i));
 		
+		
+		// SEEMS USELESS, BUT IT REALLY ISN'T
 		JButton btnKillAllHumanity = new JButton("Kill All Humanity");
 		btnKillAllHumanity.setBounds(10, 215, 205, 23);
 		contentPane.add(btnKillAllHumanity);
 		
+		
+		// CREATE ANOTHER AGENT
 		JButton btnCallAnotherAgent = new JButton("Call Another Agent");
 		btnCallAnotherAgent.setBounds(225, 215, 199, 23);
+		btnScanForAgents.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//Get the JADE runtime interface (singleton)
+				jade.core.Runtime runtime = jade.core.Runtime.instance();
+				//Create a Profile, where the launch arguments are stored
+				Profile profile = new ProfileImpl();
+				profile.setParameter(Profile.CONTAINER_NAME, "Main-Container");
+				profile.setParameter(Profile.MAIN_HOST, "localhost");
+				//create a non-main agent container
+				ContainerController container = runtime.createAgentContainer(profile);
+				try {
+						String name = "Agent "+String.valueOf(Math.round(Math.random()*1000));
+				        AgentController ag = container.createNewAgent(name, 
+				                                      "AgentSmith", 
+				                                      new Object[] {});//arguments
+				        ag.start();
+				} catch (StaleProxyException e) {
+				    e.printStackTrace();
+				}
+			}
+		});
 		contentPane.add(btnCallAnotherAgent);
 		
+		// NICE TEXT
 		JLabel lblMessage = new JLabel("Message");
 		lblMessage.setBounds(23, 11, 192, 14);
 		contentPane.add(lblMessage);
 		
+		// ALSO NICE TEXT
 		JLabel lblReceiver = new JLabel("Receiver");
 		lblReceiver.setBounds(20, 77, 195, 14);
 		contentPane.add(lblReceiver);
 		
+		// LIST OF AGENTS
 		receiver = new JComboBox<String>();
 		receiver.setBounds(10, 102, 205, 23);
 		contentPane.add(receiver);
 		
 		
-		
+		// LOG AREA
 		log = new JTextArea();
 		JScrollPane scroll = new JScrollPane(log);
 		scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
@@ -231,10 +260,13 @@ class Gui extends JFrame implements ActionListener
 		//log.setBounds(225, 32, 199, 165);
 		contentPane.add(scroll);
 		
+		// NICE TEXT
 		JLabel lblLog = new JLabel("Log");
 		lblLog.setBounds(240, 11, 184, 14);
 		contentPane.add(lblLog);
 		
+		
+		// SCAN FOR AGENTS
 		JButton btnScanForAgents = new JButton("Scan For Agents");
 		btnScanForAgents.setBounds(10, 174, 205, 23);
 		btnScanForAgents.addActionListener(new ActionListener() {
@@ -250,7 +282,8 @@ class Gui extends JFrame implements ActionListener
 			}
 		});
 		contentPane.add(btnScanForAgents);
-				
+		
+		// SEND MESSAGE
 		JButton btnSendThreat = new JButton("Send Threat");
 		btnSendThreat.setBounds(10, 136, 205, 23);
 		contentPane.add(btnSendThreat);
@@ -270,6 +303,7 @@ class Gui extends JFrame implements ActionListener
 			}	
 		});
 		
+		// DISPLAY GUI
 		setVisible(true);
 
     }
@@ -287,41 +321,4 @@ class Gui extends JFrame implements ActionListener
     
 }
 
-class SendMessage extends OneShotBehaviour {
 
-    public void action() {
-        /*ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        msg.addReceiver(new AID("R", AID.ISLOCALNAME));
-        msg.setLanguage("English");
-        msg.setContent("Hello How Are You?");
-        send(msg);
-        System.out.println("****I Sent Message to::> R1 *****"+"\n"+
-                            "The Content of My Message is::>"+ msg.getContent());*/
-    }
-}
-
-class ReceiveMessage extends CyclicBehaviour {
-
-    // Variable to Hold the content of the received Message
-    private String Message_Performative;
-    private String Message_Content;
-    private String SenderName;
-    private String MyPlan;
-
-
-    public void action() {
-        /*ACLMessage msg = receive();
-        if(msg != null) {
-
-            Message_Performative = msg.getPerformative(msg.getPerformative());
-            Message_Content = msg.getContent();
-            SenderName = msg.getSender().getLocalName();
-            System.out.println(" ****I Received a Message***" +"\n"+
-                    "The Sender Name is::>"+ SenderName+"\n"+
-                    "The Content of the Message is::> " + Message_Content + "\n"+
-                    "::: And Performative is::> " + Message_Performative + "\n");
-            System.out.println("ooooooooooooooooooooooooooooooooooooooo");*/
-
-        }
-
-    }
