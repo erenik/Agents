@@ -46,6 +46,7 @@ and then terminates.
 public class AgentSmith extends Agent {
 	
 	public Gui gui;
+	static final String workStr = "Get to work.";
 	
 	/// Default messages that may be sent and replied to.
 //public static String targetAgent = "ReplaceMe";	
@@ -56,14 +57,14 @@ public class AgentSmith extends Agent {
 		System.out.println("AgentSmith.Log: "+txt);
 		gui.Log(txt);
 	}
-	
 	static ArrayList<String> RequestMessages()
 	{
 		ArrayList<String> messages = new ArrayList<String>();
 		messages.add("Who are you?");
 		messages.add("What do you want?");
 		messages.add("Kill");
-        return messages;
+                messages.add(workStr);
+                return messages;
 	}
 	static String ReplyForRequest(String request)
 	{
@@ -71,6 +72,8 @@ public class AgentSmith extends Agent {
 		System.out.println(request);
 		if (request.equals("Who are you?"))
 			return "Agent Smith: Me? I guess you could say, that I am the Alpha... ";
+                if (request.equals(workStr))
+                        return "On it.";
 		return "...";
 	}
 	
@@ -125,6 +128,11 @@ public class AgentSmith extends Agent {
 							System.exit(1);
 							return;
 						}
+                                                else if (content.equals(workStr))
+                                                {
+                                                   Worker w = new Worker();
+                                                   w.DoWork();
+                                                }
 						String replyStr = ReplyForRequest(content);						
 						System.out.println("Reply: "+replyStr);
 							
