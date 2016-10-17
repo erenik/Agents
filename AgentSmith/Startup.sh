@@ -2,7 +2,8 @@
 echo Startup script running... > AgentStartupScript.log
 agentDir=/home/ubuntu/JADE/Agents/AgentSmith
 cd $agentDir
-echo Yolo > Startup.sh.log
-git pull
-javac $agentDir/ServerAgentSmith.java
-java jade.Boot -agents hostAgent:ServerAgentSmith & 
+logFile=Startup.log
+echo Yolo >> $logFile
+git pull >> $logFile
+javac ServerAgentSmith.java >> $logFile
+(java jade.Boot -agents hostAgent:ServerAgentSmith & >> $logFile)
