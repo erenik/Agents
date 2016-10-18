@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.OutputStreamWriter;
 import java.lang.Exception;
+import java.lang.Math;
 
 
 
@@ -96,30 +97,32 @@ class SendMessage implements Runnable {
 	private int port;
 	private String msg;
 	private Socket s;
+	private int id;
 	
 	public SendMessage(String nIp, int nPort, String nMsg) {
 		ip = nIp;
 		port = nPort;
 		msg = nMsg;
+		id = Math.round(Math.random()*1000);
 	}
 	
 	public void run() {
 		try {
-			System.out.println("trying to connect...");
+			System.out.println(id+":trying to connect...");
     		Socket s = new Socket(ip, port);
-    		System.out.println("Connected.");
+    		System.out.println(id+":Connected.");
     		DataInputStream in = new DataInputStream( s.getInputStream());
     		DataOutputStream out = new DataOutputStream( s.getOutputStream());
     		
     		out.writeBytes(msg);
     		out.flush();
-    		System.out.println(msg+" Sent.");
+    		System.out.println(id+":"+msg+" Sent.");
     		@SuppressWarnings("deprecation")
 			String line = in.readLine();
-    		System.out.println("Received:"+line);
+    		System.out.println(id+":Received:"+line);
     		s.close();
 		} catch (Exception e) {
-			System.out.println("error "+e.getMessage());
+			System.out.println(id+":error "+e.getMessage());
 		}
 	}
 }
