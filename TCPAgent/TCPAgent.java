@@ -76,7 +76,7 @@ public class TCPAgent extends Agent {
         		try {
         			SendMessage th = new SendMessage(ip,port,content);
         			th.run();
-        			Thread.sleep(1000);
+        			Thread.sleep(5);
         			
         		} catch (Exception e) {
         			System.out.println("error "+e.getMessage());
