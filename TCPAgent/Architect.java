@@ -49,7 +49,7 @@ import java.awt.event.ActionEvent;
 
 public class Architect extends Agent{
 	
-	public Gui gui;
+	public GUI gui;
 	
 	// setup agent
 	protected void setup() 
@@ -58,7 +58,7 @@ public class Architect extends Agent{
 		// some nice quote
         System.out.println("'I'm here to destroy servers and chew bubble gum, and i'm all out of bubble gum.' - Architect " + getLocalName());
         // initializes the gui
-        gui = new Gui();
+        gui = new GUI();
         // associates the gui
         //gui.setAgent(this);
         
