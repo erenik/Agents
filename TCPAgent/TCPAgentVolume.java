@@ -84,7 +84,7 @@ public class TCPAgentVolume extends Agent {
         		// we send a message every second to a tcp server        		
         		try {
         			SendMessageVolume th = new SendMessageVolume(getLocalName(), ip, port, content);
-        			th.run();
+        			th.start();
         			Thread.sleep(period);
         			
         		} catch (Exception e) {
