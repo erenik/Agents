@@ -73,13 +73,15 @@ public class TCPAgent extends Agent {
         		String content = "47";
         		
         		try {
+        			System.out.println("trying to connect...");
 	        		Socket s = new Socket(ip, port);
+	        		System.out.println("Connected.");
 	        		DataInputStream in = new DataInputStream( s.getInputStream());
 	        		DataOutputStream out = new DataOutputStream( s.getOutputStream());
 	        		
 	        		out.writeBytes(content);
 	        		out.flush();
-	        		
+	        		System.out.println(content+" Sent.");
 	        		@SuppressWarnings("deprecation")
 					String line = in.readLine();
 	        		System.out.println("Received:"+line);
