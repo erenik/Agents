@@ -47,18 +47,7 @@ class Worker extends Thread
 	{
 		workersStarted++;
 		System.out.println("Workers started: "+workersStarted);
-		float sum = 1;
-		int lastInt = 0;
-		for (int i = seedEnumerator; i < 100000000; ++i)
-		{
-			sum += (float) i / sum;
-			sum *= Math.sqrt(i) / 100.0;
-			sum /= i;
-//			System.out.println("sum: "+sum);
-			lastInt = i;
-		}
 		PrimeNumbers();
-		System.out.println("Work done, result: "+sum+" iterations: "+lastInt);
 		workersStopped++;
 		System.out.println("Workers stopped: "+workersStopped);
 		if (workersStopped == workersStarted)
@@ -69,7 +58,7 @@ class Worker extends Thread
 	{
 		ArrayList<Long> primes = new ArrayList<Long>();
 		long maxSearch = Long.MAX_VALUE;
-		for (long i = 2; primes.size() < 10000; ++i)
+		for (long i = 2; primes.size() < 5000; ++i)
 		{
 			// Check division with previous primes.
 			boolean dividableByAny = false;

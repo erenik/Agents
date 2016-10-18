@@ -107,11 +107,18 @@ public class TCPServer {
             System.out.println("recv: "+line);
             /// Reply?
             PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
-			Worker w = new Worker();
-			w.DoWork();
-			workers.add(w);
-            out.println("Starting heavy calculation: Calc jobs: "+workers.size());
-			System.out.println("Starting worker.");
+			if (workers.size() > 20)
+			{
+				Worker w = new Worker();
+				w.DoWork();
+				workers.add(w);
+				out.println("Starting heavy calculation: Calc jobs: "+workers.size());
+				System.out.println("Starting worker.");
+			}
+			else
+			{
+				out.println("Reached worker limit. Rejecting request.");
+			}
             out.flush();
         }
        // if (incData == false)

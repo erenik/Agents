@@ -124,8 +124,8 @@ class SendMessageVolume implements Runnable {
     		out.flush();
     		System.out.println(id+": Sent "+msg.length()+" bytes.");
     		@SuppressWarnings("deprecation")
-//			String line = in.readLine();
-  //  		System.out.println(id+": Received:"+line);
+			String line = in.readLine();
+    		System.out.println(id+": Received:"+line);
     		s.close();
 		} catch (Exception e) {
 			System.out.println(id+": error "+e.getMessage());
