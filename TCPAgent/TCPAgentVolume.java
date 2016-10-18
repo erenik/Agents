@@ -97,7 +97,7 @@ public class TCPAgentVolume extends Agent {
 
 }
 
-class SendMessageVolume implements Runnable {
+class SendMessageVolume extends Thread {
 	
 	private String ip;
 	private int port;
