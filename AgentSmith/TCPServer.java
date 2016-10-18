@@ -69,6 +69,11 @@ public class TCPServer {
             {
                 break; // No new client, just break the loop.
             }
+			catch (java.net.SocketException e)
+			{
+				System.out.println("Unable to accept incoming connection. Too many simultaneous connections: "+e.toString());
+				break;
+			}
             System.out.println("Incoming client");
             System.out.println("Num clients: "+sockets.size());
         }

@@ -36,6 +36,9 @@ import java.io.PrintWriter;
 import java.io.OutputStreamWriter;
 import java.lang.Exception;
 import java.lang.Math;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+
 
 
 
@@ -117,8 +120,8 @@ class SendMessageVolume extends Thread {
 //			System.out.println(id+": trying to connect...");
     		Socket s = new Socket(ip, port);
   //  		System.out.println(id+":Connected.");
-    		DataInputStream in = new DataInputStream( s.getInputStream());
-    		DataOutputStream out = new DataOutputStream( s.getOutputStream());
+    		BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			PrintWriter out = out = new PrintWriter(s.getOutputStream(), true);
     		
     		out.writeBytes(msg);
     		out.flush();
@@ -132,63 +135,3 @@ class SendMessageVolume extends Thread {
 		}
 	}
 }
-
-	
-
-				
-/*		JButton btnSendThreat = new JButton("Send Threat");
-		btnSendThreat.setBounds(10, 136, 205, 23);
-		contentPane.add(btnSendThreat);
-		btnSendThreat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0)
-			{
-				// Send a default message for now.
-				ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-				msg.addReceiver(new AID(receiver.getItemAt(receiver.getSelectedIndex()), AID.ISLOCALNAME));
-				msg.setLanguage("English");
-				msg.setContent("Who are you?");
-				myAgent.send(msg);
-				System.out.println("Sent message");  
-			}	
-		});
-
-
-class SendMessage extends OneShotBehaviour {
-
-    public void action() {
-        /*ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        msg.addReceiver(new AID("R", AID.ISLOCALNAME));
-        msg.setLanguage("English");
-        msg.setContent("Hello How Are You?");
-        send(msg);
-        System.out.println("****I Sent Message to::> R1 *****"+"\n"+
-                            "The Content of My Message is::>"+ msg.getContent());
-    }
-}
-
-class ReceiveMessage extends CyclicBehaviour {
-
-    // Variable to Hold the content of the received Message
-    private String Message_Performative;
-    private String Message_Content;
-    private String SenderName;
-    private String MyPlan;
-
-
-    public void action() {
-        /*ACLMessage msg = receive();
-        if(msg != null) {
-
-            Message_Performative = msg.getPerformative(msg.getPerformative());
-            Message_Content = msg.getContent();
-            SenderName = msg.getSender().getLocalName();
-            System.out.println(" ****I Received a Message***" +"\n"+
-                    "The Sender Name is::>"+ SenderName+"\n"+
-                    "The Content of the Message is::> " + Message_Content + "\n"+
-                    "::: And Performative is::> " + Message_Performative + "\n");
-            System.out.println("ooooooooooooooooooooooooooooooooooooooo");
-
-        }
-
-    }
-*/
