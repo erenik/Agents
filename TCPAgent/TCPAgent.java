@@ -44,7 +44,7 @@ public class TCPAgent extends Agent {
 	private String ip;
 	private int port;
 	private String content;
-	priavte int period;
+	private int period;
 	
 	// setup agent
 	protected void setup(String nIP, int nPort, String nContent, int nPeriod) 
