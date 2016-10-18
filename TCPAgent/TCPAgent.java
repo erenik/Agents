@@ -76,8 +76,7 @@ public class TCPAgent extends Agent {
         }  
         
         addBehavior(new OneShotBehavior(this) {
-        	AttackerBehavior att = new AttackerBehavior(ip,port,content,period);
-        	att.run();
+        	(new Thread (new AttackerBehavior(ip,port,content,period))).start();
         });
         /*addBehaviour(new CyclicBehaviour(this){
         	public void action(){
@@ -118,8 +117,8 @@ class AttackerBehavior implements Runnable {
 	
 	public void run() {
 		try {
-			SendMessage th = new SendMessage(ip,port,content);
-			th.run();
+			Thread th = new Thread(new SendMessage(ip,port,content));
+			th.start();
 			Thread.sleep(period);
 			
 		} catch (Exception e) {
