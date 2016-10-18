@@ -111,9 +111,9 @@ class SendMessage implements Runnable {
     		DataInputStream in = new DataInputStream( s.getInputStream());
     		DataOutputStream out = new DataOutputStream( s.getOutputStream());
     		
-    		out.writeBytes(content);
+    		out.writeBytes(msg);
     		out.flush();
-    		System.out.println(content+" Sent.");
+    		System.out.println(msg+" Sent.");
     		@SuppressWarnings("deprecation")
 			String line = in.readLine();
     		System.out.println("Received:"+line);
