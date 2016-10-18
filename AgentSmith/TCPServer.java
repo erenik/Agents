@@ -102,8 +102,8 @@ public class TCPServer {
       //      System.out.println("Making new buffered readerrr");
             if (!in.ready())
                 continue;
-			String line = in.read(receiveBuf, 0, 2000); // Read incoming 2k chars as far as possible/needed.
-            System.out.println("recv "+line.length()+" bytes");
+			int bytesRead = in.read(receiveBuf, 0, 2000); // Read incoming 2k chars as far as possible/needed.
+            System.out.println("recv "+bytesRead+" bytes");
             /// Reply?
             PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
 			if (workers.size() < 20)
