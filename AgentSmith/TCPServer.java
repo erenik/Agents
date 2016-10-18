@@ -110,7 +110,7 @@ public class TCPServer {
 			Worker w = new Worker();
 			w.DoWork();
 			workers.add(w);
-            out.println("Starting heavy calculation: Calc jobs: "+w.size());
+            out.println("Starting heavy calculation: Calc jobs: "+workers.size());
 			System.out.println("Starting worker.");
             out.flush();
         }
