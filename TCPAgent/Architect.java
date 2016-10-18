@@ -47,7 +47,7 @@ import java.awt.event.ActionEvent;
 
 
 
-public class Architect {
+public class Architect extends Agent{
 	
 	public Gui gui;
 	
