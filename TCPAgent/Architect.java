@@ -163,7 +163,7 @@ class GUI extends JFrame {
 						String name = "Agent "+String.valueOf(Math.round(Math.random()*1000));
 				        AgentController ag = container.createNewAgent(name, 
 				                                      "TCPAgent", 
-				                                      args);//arguments
+				                                      new Object[] {});//arguments
 				        ag.start();
 				} catch (StaleProxyException e) {
 				    e.printStackTrace();
