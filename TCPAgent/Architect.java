@@ -172,5 +172,7 @@ class GUI extends JFrame {
 		});
 		btnCreate.setBounds(146, 211, 157, 23);
 		contentPane.add(btnCreate);
+		
+		setVisible(true);
 	}
 }
