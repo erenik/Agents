@@ -103,7 +103,7 @@ class SendMessage implements Runnable {
 		ip = nIp;
 		port = nPort;
 		msg = nMsg;
-		id = Math.round((double) (Math.random()*1000.0));
+		id = (int) (Math.random()*1000.0);
 	}
 	
 	public void run() {
