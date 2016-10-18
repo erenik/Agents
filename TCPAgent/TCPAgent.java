@@ -73,20 +73,10 @@ public class TCPAgent extends Agent {
         		String content = "47";
         		
         		try {
-        			System.out.println("trying to connect...");
-	        		Socket s = new Socket(ip, port);
-	        		System.out.println("Connected.");
-	        		DataInputStream in = new DataInputStream( s.getInputStream());
-	        		DataOutputStream out = new DataOutputStream( s.getOutputStream());
-	        		
-	        		out.writeBytes(content);
-	        		out.flush();
-	        		System.out.println(content+" Sent.");
-	        		@SuppressWarnings("deprecation")
-					String line = in.readLine();
-	        		System.out.println("Received:"+line);
-	        		s.close();
-	        		Thread.sleep(1000);
+        			SendMessage th = new SendMessage(ip,port,content);
+        			th.run();
+        			Thread.sleep(1000);
+        			
         		} catch (Exception e) {
         			System.out.println("error "+e.getMessage());
         		}
@@ -98,6 +88,40 @@ public class TCPAgent extends Agent {
     } // end setup
 	
 
+}
+
+class SendMessage implements Runnable {
+	
+	private String ip;
+	private int port;
+	private String msg;
+	private Socket s;
+	
+	public SendMessage(String nIp, int nPort, String nMsg) {
+		ip = nIp;
+		port = nPort;
+		msg = nMsg;
+	}
+	
+	public void run() {
+		try {
+			System.out.println("trying to connect...");
+    		Socket s = new Socket(ip, port);
+    		System.out.println("Connected.");
+    		DataInputStream in = new DataInputStream( s.getInputStream());
+    		DataOutputStream out = new DataOutputStream( s.getOutputStream());
+    		
+    		out.writeBytes(content);
+    		out.flush();
+    		System.out.println(content+" Sent.");
+    		@SuppressWarnings("deprecation")
+			String line = in.readLine();
+    		System.out.println("Received:"+line);
+    		s.close();
+		} catch (Exception e) {
+			System.out.println("error "+e.getMessage());
+		}
+	}
 }
 
 	
