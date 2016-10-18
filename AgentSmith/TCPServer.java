@@ -90,6 +90,7 @@ public class TCPServer {
 			}
 		}
 	}
+	char[] receiveBuf = new char[2000];
     void ReadIncomingData() throws IOException 
     {
     //    System.out.print("Incoming data");
@@ -101,9 +102,8 @@ public class TCPServer {
       //      System.out.println("Making new buffered readerrr");
             if (!in.ready())
                 continue;
+			in.read(receiveBuf, 0, 2000); // Read incoming 2k chars as far as possible/needed.
             String line = in.readLine();
-            if (line.length() <= 1)
-                incData = true;
             System.out.println("recv: "+line);
             /// Reply?
             PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
@@ -121,7 +121,5 @@ public class TCPServer {
 			}
             out.flush();
         }
-       // if (incData == false)
-         //   System.out.println("?");
     }
 }
