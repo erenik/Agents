@@ -5,7 +5,7 @@ import java.lang.Runnable;
 
 class Worker extends Thread
 {
-	boolean workIsDone = false;
+	public boolean workIsDone = false;
 	int seed;
 	static int seedEnumerator = 1;
 	static int workersStarted = 0;
@@ -21,8 +21,8 @@ class Worker extends Thread
 		Worker w = new Worker();
 //		w.DoWork(); // 39% cpu consumed, 10.5 MB,
 		w.DoALotOfWork(5); // 50~90% CPU consumed, 12 MB,
-		while(true)
-			;
+//		while(true)
+	//		;
 	}
 	// Starts some threads for arbitrary calculations to consume CPU power.
 	public void DoWork()
@@ -59,15 +59,17 @@ class Worker extends Thread
 		}
 		PrimeNumbers();
 		System.out.println("Work done, result: "+sum+" iterations: "+lastInt);
-		workersStarted--;
+		workersStopped++;
 		System.out.println("Workers stopped: "+workersStopped);
+		if (workersStopped == workersStarted)
+			workIsDone = true;
 	}
 	
 	void PrimeNumbers()
 	{
 		ArrayList<Long> primes = new ArrayList<Long>();
 		long maxSearch = Long.MAX_VALUE;
-		for (long i = 2; i < maxSearch; ++i)
+		for (long i = 2; primes.size() < 10000; ++i)
 		{
 			// Check division with previous primes.
 			boolean dividableByAny = false;
