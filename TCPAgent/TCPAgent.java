@@ -75,13 +75,16 @@ public class TCPAgent extends Agent {
 			doDelete();
         }  
         
+        /*addBehavior(new OneShotBehavior(this) {
+        	(new Thread (new AttackerBehavior(ip,port,content,period))).start();
+        });*/
         addBehaviour(new CyclicBehaviour(this){
         	public void action(){
         		// we send a message every second to a tcp server
         		
         		try {
-        			SendMessage th = new SendMessage(ip,port,content);
-        			th.run();
+        			Thread th = new Thread(new SendMessage(ip,port,content));
+        			th.start();
         			Thread.sleep(period);
         			
         		} catch (Exception e) {
@@ -92,9 +95,36 @@ public class TCPAgent extends Agent {
         		
         	}
         });
+        
     } // end setup
 	
 
+}
+
+class AttackerBehavior implements Runnable {
+	
+	private String ip;
+	private int port;
+	private String content;
+	private int period;
+	
+	public AttackerBehavior(String ip, int port, String content, int period) {
+		ip = ip;
+		port = port;
+		content = content;
+		period = period;
+	}
+	
+	public void run() {
+		try {
+			Thread th = new Thread(new SendMessage(ip,port,content));
+			th.start();
+			Thread.sleep(period);
+			
+		} catch (Exception e) {
+			System.out.println("error "+e.getMessage());
+		}
+	}
 }
 
 class SendMessage implements Runnable {
