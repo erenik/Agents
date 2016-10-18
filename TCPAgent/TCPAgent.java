@@ -81,6 +81,8 @@ public class TCPAgent extends Agent {
         		@SuppressWarnings("deprecation")
 				String line = in.readLine();
         		System.out.println("Received:"+line);
+        		s.close();
+        		Thread.sleep(1000);
 
         		
         		
