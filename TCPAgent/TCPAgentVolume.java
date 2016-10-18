@@ -122,7 +122,7 @@ class SendMessage implements Runnable {
     		
     		out.writeBytes(msg);
     		out.flush();
-    		System.out.println(id+":"+msg+" Sent.");
+    		System.out.println(id+": Send "+msg.length()+" bytes.");
     		@SuppressWarnings("deprecation")
 			String line = in.readLine();
     		System.out.println(id+":Received:"+line);
