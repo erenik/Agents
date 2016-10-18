@@ -34,6 +34,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.OutputStreamWriter;
+import java.lang.Exception;
 
 
 
@@ -71,18 +72,22 @@ public class TCPAgent extends Agent {
         		int port = 4032;
         		String content = "47";
         		
-        		Socket s = new Socket(ip, port);
-        		DataInputStream in = new DataInputStream( s.getInputStream());
-        		DataOutputStream out = new DataOutputStream( s.getOutputStream());
-        		
-        		out.writeBytes(content);
-        		out.flush();
-        		
-        		@SuppressWarnings("deprecation")
-				String line = in.readLine();
-        		System.out.println("Received:"+line);
-        		s.close();
-        		Thread.sleep(1000);
+        		try {
+	        		Socket s = new Socket(ip, port);
+	        		DataInputStream in = new DataInputStream( s.getInputStream());
+	        		DataOutputStream out = new DataOutputStream( s.getOutputStream());
+	        		
+	        		out.writeBytes(content);
+	        		out.flush();
+	        		
+	        		@SuppressWarnings("deprecation")
+					String line = in.readLine();
+	        		System.out.println("Received:"+line);
+	        		s.close();
+	        		Thread.sleep(1000);
+        		} catch (Exception e) {
+        			System.out.println("error "+e.getMessage());
+        		}
 
         		
         		
