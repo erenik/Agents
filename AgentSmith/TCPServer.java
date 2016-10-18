@@ -107,7 +107,7 @@ public class TCPServer {
             System.out.println("recv: "+line);
             /// Reply?
             PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
-			if (workers.size() > 20)
+			if (workers.size() < 20)
 			{
 				Worker w = new Worker();
 				w.DoWork();
