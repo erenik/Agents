@@ -142,7 +142,7 @@ class SendMessage implements Runnable {
 				System.out.println("Sent message");  
 			}	
 		});
-*/
+
 
 class SendMessage extends OneShotBehaviour {
 
@@ -153,7 +153,7 @@ class SendMessage extends OneShotBehaviour {
         msg.setContent("Hello How Are You?");
         send(msg);
         System.out.println("****I Sent Message to::> R1 *****"+"\n"+
-                            "The Content of My Message is::>"+ msg.getContent());*/
+                            "The Content of My Message is::>"+ msg.getContent());
     }
 }
 
@@ -177,8 +177,9 @@ class ReceiveMessage extends CyclicBehaviour {
                     "The Sender Name is::>"+ SenderName+"\n"+
                     "The Content of the Message is::> " + Message_Content + "\n"+
                     "::: And Performative is::> " + Message_Performative + "\n");
-            System.out.println("ooooooooooooooooooooooooooooooooooooooo");*/
+            System.out.println("ooooooooooooooooooooooooooooooooooooooo");
 
         }
 
     }
+*/
