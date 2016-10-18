@@ -83,7 +83,7 @@ public class TCPAgentVolume extends Agent {
         	public void action(){
         		// we send a message every second to a tcp server        		
         		try {
-        			SendMessage th = new SendMessage(ip, port, content);
+        			SendMessageVolume th = new SendMessageVolume(ip, port, content);
         			th.run();
         			Thread.sleep(period);
         			
@@ -97,7 +97,7 @@ public class TCPAgentVolume extends Agent {
 
 }
 
-class SendMessage implements Runnable {
+class SendMessageVolume implements Runnable {
 	
 	private String ip;
 	private int port;
@@ -105,7 +105,7 @@ class SendMessage implements Runnable {
 	private Socket s;
 	private int id;
 	
-	public SendMessage(String nIp, int nPort, String nMsg) {
+	public SendMessageVolume(String nIp, int nPort, String nMsg) {
 		ip = nIp;
 		port = nPort;
 		msg = nMsg;
