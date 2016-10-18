@@ -149,7 +149,7 @@ class GUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				// getting data
-				Object[] args = { ip.getText(), Integer.valueOf(port.getText()),content.getText(), Integer.valueOf(period.getText())}; 
+				Object[] args = { ip.getText(), port.getText(),content.getText(), period.getText()}; 
 				
 				//Get the JADE runtime interface (singleton)
 				jade.core.Runtime runtime = jade.core.Runtime.instance();

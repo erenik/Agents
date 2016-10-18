@@ -47,13 +47,13 @@ public class TCPAgent extends Agent {
 	private int period;
 	
 	// setup agent
-	protected void setup(String nIP, int nPort, String nContent, int nPeriod) 
+	protected void setup() 
 	{
-		
-		ip = nIP;
-		port = nPort;
-		content = nContent;
-		period = nPeriod;
+		Object[] args = getArguments();
+		ip = args[0].toString();
+		port = Integer.valueOf(args[1].toString());
+		content = args[2].toString();
+		period = Integer.valueOf(args[3].toString());
 		
 		
 		// some nice quote
