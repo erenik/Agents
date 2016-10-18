@@ -41,11 +41,20 @@ import java.lang.Math;
 
 public class TCPAgent extends Agent {
 	
-	
+	private String ip;
+	private int port;
+	private String content;
+	priavte int period;
 	
 	// setup agent
-	protected void setup() 
+	protected void setup(String nIP, int nPort, String nContent, int nPeriod) 
 	{
+		
+		ip = nIP;
+		port = nPort;
+		content = nContent;
+		period = nPeriod;
+		
 		
 		// some nice quote
         System.out.println("I'm here to spam some TCP server - " + getLocalName());
@@ -69,14 +78,11 @@ public class TCPAgent extends Agent {
         addBehaviour(new CyclicBehaviour(this){
         	public void action(){
         		// we send a message every second to a tcp server
-        		String ip = "balancertcpfibo-1404729259.us-west-2.elb.amazonaws.com";
-        		int port = 4032;
-        		String content = "47";
         		
         		try {
         			SendMessage th = new SendMessage(ip,port,content);
         			th.run();
-        			Thread.sleep(5);
+        			Thread.sleep(period);
         			
         		} catch (Exception e) {
         			System.out.println("error "+e.getMessage());
