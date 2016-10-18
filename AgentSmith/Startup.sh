@@ -3,7 +3,7 @@ echo Startup script running... > AgentStartupScript.log
 agentDir=/home/ubuntu/JADE/Agents/AgentSmith
 cd $agentDir
 logFile=Startup.log
-echo Yolo >> $logFile
+echo "======== Server Startup =========" >> $logFile
 git pull >> $logFile
 javac TCPServer.java >> $logFile
 javac Worker.java >> $logFile
