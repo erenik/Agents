@@ -48,6 +48,37 @@ import java.awt.event.ActionEvent;
 
 
 public class Architect {
+	
+	public Gui gui;
+	
+	// setup agent
+	protected void setup() 
+	{
+		
+		// some nice quote
+        System.out.println("'I'm here to destroy servers and chew bubble gum, and i'm all out of bubble gum.' - Architect " + getLocalName());
+        // initializes the gui
+        gui = new Gui();
+        // associates the gui
+        //gui.setAgent(this);
+        
+        /** Registration with the DF */
+        DFAgentDescription dfd = new DFAgentDescription();
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("Architect");
+        sd.setName(getName());
+        sd.setOwnership("The Architect itself");
+        sd.addOntologies("Architect");
+        dfd.setName(getAID());
+        dfd.addServices(sd);
+        try {
+			DFService.register(this,dfd);
+        } catch (FIPAException e) {
+			System.err.println(getLocalName()+" registration with DF unsucceeded. Reason: "+e.getMessage());
+			doDelete();
+        }  
+        
+	}
 
 }
 
@@ -60,21 +91,6 @@ class GUI extends JFrame {
 	private JTextField content;
 	private JTextField period;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Edde frame = new Edde();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
