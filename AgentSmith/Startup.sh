@@ -5,7 +5,7 @@ cd $agentDir
 logFile=Startup.log
 echo Yolo >> $logFile
 git pull >> $logFile
-javac ServerAgentSmith.java >> $logFile
-
+javac TCPServer.java >> $logFile
+javac Worker.java >> $logFile
 (java -cp "/home/ubuntu/JADE/Agents/AgentSmith/:/home/ubuntu/JADE/jade/lib/jade.jar:/home/ubuntu/JADE/jade/lib/jadeTools.jar:/home/ubuntu/JADE/jade/lib/Base64.jar:/home/ubuntu/JADE/jade/lib/http.jar:/home/ubuntu/JADE/jade/lib/iiop.jar" jade.Boot -agents hostAgent:ServerAgentSmith 1> Output.log 2> Error.log &)
 
