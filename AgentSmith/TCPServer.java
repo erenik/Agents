@@ -30,18 +30,9 @@ public class TCPServer {
         while (true)
         {
             serv.AcceptClients();
+			serv.CleanOldWorkers();
             if (serv.sockets.size() > 0)
                 serv.ReadIncomingData();
-			// Clear old finished workers.
-			for (int i = 0; i < workers.size(); ++i)
-			{
-				Worker w = workers.get(i);
-				if (w.workIsDone){
-					workers.remove(w);
-					System.out.println("Worker done");
-				}
-			}
-
         }
     }
     void Host() throws IOException
@@ -87,6 +78,18 @@ public class TCPServer {
       //      count = 0;
   //      }
     }
+	void CleanOldWorkers()
+	{
+		// Clear old finished workers.
+		for (int i = 0; i < workers.size(); ++i)
+		{
+			Worker w = workers.get(i);
+			if (w.workIsDone){
+				workers.remove(w);
+				System.out.println("Worker done");
+			}
+		}
+	}
     void ReadIncomingData() throws IOException 
     {
     //    System.out.print("Incoming data");
