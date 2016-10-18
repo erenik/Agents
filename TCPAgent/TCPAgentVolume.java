@@ -83,7 +83,7 @@ public class TCPAgentVolume extends Agent {
         	public void action(){
         		// we send a message every second to a tcp server        		
         		try {
-        			SendMessageVolume th = new SendMessageVolume(ip, port, content);
+        			SendMessageVolume th = new SendMessageVolume(getLocalName(), ip, port, content);
         			th.run();
         			Thread.sleep(period);
         			
@@ -103,32 +103,32 @@ class SendMessageVolume implements Runnable {
 	private int port;
 	private String msg;
 	private Socket s;
-	private int id;
+	private String id;
 	
-	public SendMessageVolume(String nIp, int nPort, String nMsg) {
+	public SendMessageVolume(String in_id, String nIp, int nPort, String nMsg) {
 		ip = nIp;
 		port = nPort;
 		msg = nMsg;
-		id = (int) (Math.random()*1000.0);
+		id = in_id;
 	}
 	
 	public void run() {
 		try {
-			System.out.println(id+":trying to connect...");
+//			System.out.println(id+": trying to connect...");
     		Socket s = new Socket(ip, port);
-    		System.out.println(id+":Connected.");
+  //  		System.out.println(id+":Connected.");
     		DataInputStream in = new DataInputStream( s.getInputStream());
     		DataOutputStream out = new DataOutputStream( s.getOutputStream());
     		
     		out.writeBytes(msg);
     		out.flush();
-    		System.out.println(id+": Send "+msg.length()+" bytes.");
+    		System.out.println(id+": Sent "+msg.length()+" bytes.");
     		@SuppressWarnings("deprecation")
-			String line = in.readLine();
-    		System.out.println(id+":Received:"+line);
+//			String line = in.readLine();
+  //  		System.out.println(id+": Received:"+line);
     		s.close();
 		} catch (Exception e) {
-			System.out.println(id+":error "+e.getMessage());
+			System.out.println(id+": error "+e.getMessage());
 		}
 	}
 }
