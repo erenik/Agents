@@ -38,6 +38,7 @@ import java.lang.Exception;
 import java.lang.Math;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.io.InputStreamReader;
 
 
 
@@ -121,7 +122,7 @@ class SendMessageVolume extends Thread {
     		Socket s = new Socket(ip, port);
   //  		System.out.println(id+":Connected.");
     		BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			PrintWriter out = out = new PrintWriter(s.getOutputStream(), true);
+			PrintWriter out = new PrintWriter(s.getOutputStream(), true);
     		
     		out.writeBytes(msg);
     		out.flush();
