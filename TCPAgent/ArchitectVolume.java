@@ -146,9 +146,10 @@ class GUI extends JFrame {
 		period.setColumns(10);
 		
 		JButton btnCreate = new JButton("Create Agent");
-		btnCreate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+		btnCreate.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
 				// getting data
 				Object[] args = { ip.getText(), port.getText(),content.getText(), period.getText()}; 
 				
@@ -161,7 +162,7 @@ class GUI extends JFrame {
 				//create a non-main agent container
 				ContainerController container = runtime.createAgentContainer(profile);
 				try {
-						String name = "Agent "+String.valueOf(++agentEnumerator);
+						String name = "Agent "+String.valueOf(++ArchitectVolume.agentEnumerator);
 				        AgentController ag = container.createNewAgent(name, 
 				                                      "TCPAgentVolume", 
 				                                      args);//arguments
