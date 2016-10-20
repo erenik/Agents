@@ -50,7 +50,7 @@ import java.awt.event.ActionEvent;
 public class ArchitectVolume extends Agent{
 	
 	public GUI gui;
-	public int agentEnumerator = 0;
+	public static int agentEnumerator = 0;
 	
 	// setup agent
 	protected void setup() 
