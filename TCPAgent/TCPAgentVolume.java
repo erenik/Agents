@@ -37,7 +37,6 @@ import java.io.OutputStreamWriter;
 import java.lang.Exception;
 import java.lang.Math;
 import java.io.BufferedReader;
-import java.io.PrintWriter;
 import java.io.InputStreamReader;
 
 
@@ -116,7 +115,8 @@ class SendMessageVolume extends Thread {
 		id = in_id;
 	}
 	
-	public void run() {
+	public void run() 
+	{
 		try {
 //			System.out.println(id+": trying to connect...");
     		Socket s = new Socket(ip, port);
@@ -124,7 +124,7 @@ class SendMessageVolume extends Thread {
     		BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			PrintWriter out = new PrintWriter(s.getOutputStream(), true);
     		
-    		out.writeBytes(msg);
+    		out.println(msg);
     		out.flush();
     		System.out.println(id+": Sent "+msg.length()+" bytes.");
     		@SuppressWarnings("deprecation")
