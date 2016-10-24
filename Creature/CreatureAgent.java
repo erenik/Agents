@@ -49,7 +49,7 @@ public class CreatureAgent extends Agent //3- Complete the Class definition
 					block( 1000 );
 				}
 				public boolean done() {
-					return ++n <= 3; // 11-use variable "n" to run this Behaviour 3 times 
+					return ++n >= 3; // 11-use variable "n" to run this Behaviour 3 times 
 				}
 			}
 		);
