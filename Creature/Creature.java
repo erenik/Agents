@@ -7,7 +7,7 @@ public class Creature extends Agent // 12-Complete the Class definition
 	protected void setup()
 	{
 		addBehaviour( 
-			new TickerBehaviour(this, 200) // 13-Create a behavior from an appropriate
+			new CyclicBehaviour(this) // 13-Create a behavior from an appropriate
 			{
 				public void action()
 				{
