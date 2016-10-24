@@ -18,24 +18,24 @@ import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.core.AID;
 import jade.wrapper.AgentContainer; // 1- Ipmort Appropriate Jade's Class
-// import jade.wrapper. // 2- Import Appropriate Jade's Class
+import jade.wrapper.AgentController; // 2- Import Appropriate Jade's Class
 import jade.lang.acl.*;
 
 public class CreatureAgent extends Agent //3- Complete the Class definition 
 {
 	String name = "Bender-The-Offender" ;
-	AID Bender = new AID("Creature", ISLOCALNAME);// 4-Complete the code to Instantiate this Object from AID class
+	AID Bender = new AID("Creature", AID.ISLOCALNAME);// 4-Complete the code to Instantiate this Object from AID class
 	protected void setup()
 	{
 		AgentContainer c = getContainerController(); // 5-Get the name of current container and assign it to "c"
 		try {
-			AgentController a = c.createNewAgent(name, "Creature", null); // 6-Create Bender-The-Offender in the current container
-			ag.start(); // 7-Start your agent
+			AgentController ac = c.createNewAgent(name, "Creature", null); // 6-Create Bender-The-Offender in the current container
+			ac.start(); // 7-Start your agent
 			System.out.println("+++ Created: " + Bender);
 		}
 		catch (Exception e){}
 		addBehaviour(
-			new TickerBehaviour(this, 1000)  // 8-Create a behavior from an appropriate Behaviour
+			new SimpleBehaviour(this)  // 8-Create a behavior from an appropriate Behaviour
 			{
 				int n = 0;
 				public void action()
@@ -45,7 +45,7 @@ public class CreatureAgent extends Agent //3- Complete the Class definition
 					msg.setContent("Hi" );
 					msg.addReceiver(new AID(name, AID.ISLOCALNAME)); //9- Add the Receiver
 					System.out.println("+++ Sending: " + n);
-					this.send(msg);	//10- Send the Message
+					myAgent.send(msg);	//10- Send the Message
 					block( 1000 );
 				}
 				public boolean done() {
